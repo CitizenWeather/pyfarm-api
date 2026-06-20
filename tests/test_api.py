@@ -55,7 +55,9 @@ def test_health(client):
 def test_status_requires_auth(client):
     """Test that status endpoint requires authentication."""
     response = client.get("/api/v1/status")
-    assert response.status_code == 403  # CORS preflight or auth error
+    # Missing credentials -> 401 Unauthorized (HTTPBearer is configured with
+    # auto_error=False and the dependency raises 401 explicitly).
+    assert response.status_code == 401
 
 
 def test_status_with_invalid_token(client):
