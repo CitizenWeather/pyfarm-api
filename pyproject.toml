@@ -9,8 +9,8 @@ description = "API gateway for pyfarm ecosystem"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "pyfarm-core>=0.1.0",
-    "pyfarm-storage>=0.1.0",
+    "pyfarm-core[storage]>=0.1.0",
+    "pyfarm-config>=0.1.0",
     "pyfarm-auth>=0.1.0",
     "fastapi>=0.95,<0.96",
     "uvicorn[standard]>=0.20,<0.21",

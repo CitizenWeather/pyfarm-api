@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-import os
-
 from fastapi import APIRouter
+
+from pyfarm.config import get_settings
 
 from ..models import HealthResponse
 
@@ -14,9 +14,10 @@ router = APIRouter()
 @router.get("/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
     """Health check endpoint."""
+    settings = get_settings()
     return HealthResponse(
         status="ok",
-        control_url=os.getenv("CONTROL_URL", "http://localhost:8000"),
-        auth_url=os.getenv("AUTH_URL", "http://localhost:8001"),
-        storage_backend=os.getenv("PYFARM_STORAGE_BACKEND", "sqlite"),
+        control_url=str(settings.control_url),
+        auth_url=str(settings.auth_url),
+        storage_backend=settings.storage_backend,
     )

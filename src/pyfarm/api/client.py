@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import os
 from typing import Any, Optional
 
 import httpx
+
+from pyfarm.config import get_settings
 
 
 class ControlClient:
@@ -107,7 +108,7 @@ class ControlClient:
 def get_control_client() -> ControlClient:
     """Get configured control client.
 
-    Uses CONTROL_URL env var (default: http://localhost:8000).
+    Uses CONTROL_URL from settings.
     """
-    control_url = os.getenv("CONTROL_URL", "http://localhost:8000")
-    return ControlClient(control_url)
+    settings = get_settings()
+    return ControlClient(str(settings.control_url))
